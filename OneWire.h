@@ -81,10 +81,13 @@ public:
 	uint8_t read(void);
 	uint8_t read_bit(void);
 	void write_bit(uint8_t v);
-
-private:
 	void begin();
 	uint8_t end();
+	void beginTransmission(uint8_t newAddr);
+	uint8_t endTransmission();
+	void requestFrom(uint8_t mAddress,uint8_t u);
+private:
+
 	void writeByte(uint8_t);
 	uint8_t readByte();
 

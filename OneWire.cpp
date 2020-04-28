@@ -10,7 +10,11 @@ OneWire::OneWire()
 	mError = 0;
 	Wire.begin();
 }
-
+void OneWire::beginTransmission(uint8_t address){
+	mAddress =  address;
+	mError = 0;
+	Wire.begin();	
+}
 OneWire::OneWire(uint8_t address)
 {
 	// Address is determined by two pins on the DS2482 AD1/AD0
@@ -50,6 +54,9 @@ uint8_t OneWire::readByte()
 {
 	Wire.requestFrom(mAddress,1u);
 	return Wire.read();
+}
+void OneWire::requestFrom(uint8_t mAddress,uint8_t u){
+	Wire.requestFrom(mAddress,u);	
 }
 
 // Simply starts and ends an Wire transmission
