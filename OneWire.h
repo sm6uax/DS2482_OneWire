@@ -86,6 +86,8 @@ public:
 	void beginTransmission(uint8_t newAddr);
 	uint8_t endTransmission();
 	void requestFrom(uint8_t mAddress,uint8_t u);
+	static bool check_crc16(const uint8_t* input, uint16_t len, const uint8_t* inverted_crc, uint16_t crc = 0);
+    static uint16_t crc16(const uint8_t* input, uint16_t len, uint16_t crc = 0);
 private:
 
 	void writeByte(uint8_t);
