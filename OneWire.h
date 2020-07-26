@@ -79,6 +79,8 @@ public:
 	void skip(void);
 	void write(uint8_t v, uint8_t power = 0);
 	uint8_t read(void);
+	void write_bytes(const uint8_t *buf, uint16_t count, bool power /* = 0 */);
+	void read_bytes(uint8_t *buf, uint16_t count);
 	uint8_t read_bit(void);
 	void write_bit(uint8_t v);
 	void begin();
