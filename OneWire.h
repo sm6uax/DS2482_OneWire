@@ -1,7 +1,8 @@
 #ifndef __ONEWIRE_H__
 #define __ONEWIRE_H__
-
+#include "Arduino.h"
 #include <inttypes.h>
+#include <Wire.h>
 
 // Chose between a table based CRC (flash expensive, fast)
 // or a computed CRC (smaller, slow)
@@ -44,8 +45,11 @@
 class OneWire
 {
 public:
-	OneWire();
-	OneWire(uint8_t address);
+	OneWire(TwoWire& wire ,uint8_t i2cAddress):   
+	mAddress(i2cAddress),
+    mWire(wire)
+	{
+	}
 
 	uint8_t getAddress();
 	uint8_t getError();
@@ -96,6 +100,7 @@ private:
 	uint8_t readByte();
 
 	uint8_t mAddress;
+	TwoWire& mWire;
 	uint8_t mError;
 
 	uint8_t searchAddress[8];

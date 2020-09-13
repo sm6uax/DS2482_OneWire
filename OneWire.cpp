@@ -7,27 +7,13 @@
 #include <Wire.h>
 
 // Constructor with no parameters for compatability with OneWire lib
-OneWire::OneWire()
-{
-	// Address is determined by two pins on the DS2482 AD1/AD0
-	// Pass 0b00, 0b01, 0b10 or 0b11
-	mAddress = 0x18;
-	mError = 0;
-	Wire.begin();
-}
+
 void OneWire::beginTransmission(uint8_t address){
 	mAddress =  address;
 	mError = 0;
-	Wire.begin();	
+	mWire.begin();	
 }
-OneWire::OneWire(uint8_t address)
-{
-	// Address is determined by two pins on the DS2482 AD1/AD0
-	// Pass 0b00, 0b01, 0b10 or 0b11
-	mAddress = 0x18 | address;
-	mError = 0;
-	Wire.begin();
-}
+
 
 uint8_t OneWire::getAddress()
 {
@@ -71,26 +57,26 @@ uint16_t OneWire::crc16(const uint8_t* input, uint16_t len, uint16_t crc)
 // Helper functions to make dealing with I2C side easier
 void OneWire::begin()
 {
-	Wire.beginTransmission(mAddress);
+	mWire.beginTransmission(mAddress);
 }
 
 uint8_t OneWire::end()
 {
-	return Wire.endTransmission();
+	return mWire.endTransmission();
 }
 
 void OneWire::writeByte(uint8_t data)
 {
-	Wire.write(data); 
+	mWire.write(data); 
 }
 
 uint8_t OneWire::readByte()
 {
-	Wire.requestFrom(mAddress,1u);
-	return Wire.read();
+	mWire.requestFrom(mAddress,1u);
+	return mWire.read();
 }
 void OneWire::requestFrom(uint8_t mAddress,uint8_t u){
-	Wire.requestFrom(mAddress,u);	
+	mWire.requestFrom(mAddress,u);	
 }
 
 // Simply starts and ends an Wire transmission
